@@ -15,16 +15,20 @@ export default function Tops({ navigation }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25')
-            .then(res => {
+        const buscarAnimesTop = async () => {
+            try {
+                const res = await axios.get('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25');
                 setAnimesTop(res.data.data);
                 setLoading(false);
-            })
-            .catch(err => {
+            } catch (err) {
                 console.error("Erro ao buscar top animes:", err);
                 setLoading(false);
-            });
+            }
+        };
+
+        buscarAnimesTop();
     }, []);
+
 
     if (loading) {
         return (
@@ -42,19 +46,20 @@ export default function Tops({ navigation }) {
                 data={animesTop}
                 keyExtractor={item => item.mal_id.toString()}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => (
+                renderItem={({ item: dados, index: posicao }) => (
                     <TouchableOpacity
                         style={styles.itemContainer}
                         activeOpacity={0.8}
-                        onPress={() => navigation.navigate('Informacoes', { anime: item })}
+                        onPress={() => navigation.navigate('Informacoes', { anime: dados })}
                     >
-                        <Image source={{ uri: item.images.jpg.image_url }} style={styles.image} />
+                        <Image source={{ uri: dados.images.jpg.image_url }} style={styles.image} />
                         <View style={styles.info}>
-                            <Text style={styles.itemTitle}>{index + 1}. {item.title}</Text>
-                            <Text style={styles.score}>Nota: {item.score ?? 'N/A'}</Text>
+                            <Text style={styles.itemTitle}>{posicao + 1}. {dados.title}</Text>
+                            <Text style={styles.score}>Nota: {dados.score ?? 'N/A'}</Text>
                         </View>
                     </TouchableOpacity>
                 )}
+
             />
         </View>
     );

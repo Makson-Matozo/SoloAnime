@@ -23,13 +23,13 @@ function MainTabs() {
                 tabBarActiveTintColor: '#6d899d',
                 tabBarInactiveTintColor: '#dbe7ec',
                 tabBarIcon: ({ color, size }) => {
-                    if (route.name === 'Animes') {
-                        return <Feather name="film" size={size} color={color} />;
-                    } else if (route.name === 'Melhores') {
-                        return <Ionicons name="flame" size={size} color={color} />;
-                    } else if (route.name === 'Sobre') {
-                        return <Ionicons name="information-circle" size={size} color={color} />;
-                    }
+                    const icones = {
+                        Animes: <Feather name="film" size={size} color={color} />,
+                        Melhores: <Ionicons name="flame" size={size} color={color} />,
+                        Sobre: <Ionicons name="information-circle" size={size} color={color} />,
+                    };
+
+                    return icones[route.name];
                 },
             })}
         >

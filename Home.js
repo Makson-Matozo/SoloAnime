@@ -36,7 +36,7 @@ export default function TelaInicial({ navigation }) {
                 setGeneroComedia(respostaComedia.data.data);
                 await esperar(1000);
 
-                const respostaRomance = await axios.get('https://api.jikan.moe/v4/anime?genres=22&limit=5');
+                const respostaRomance = await axios.get('https://api.jikan.moe/v4/anime?genres=74&limit=5');
                 setGeneroRomance(respostaRomance.data.data);
                 await esperar(1000);
 
@@ -64,6 +64,26 @@ export default function TelaInicial({ navigation }) {
         buscarAnimes();
     }, [carregado]);
 
+    const SecaoCategoria = ({ titulo, dados, navigation }) => (
+        <View style={estilos.secao}>
+            <Text style={estilos.tituloSecao}>{titulo}</Text>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                {dados.map((anime) => (
+                    <TouchableOpacity
+                        key={anime.mal_id}
+                        style={estilos.cartao}
+                        onPress={() => navigation.navigate('Informacoes', { anime })}
+                    >
+                        <Image source={{ uri: anime.images.jpg.image_url }} style={estilos.imagemCartao} />
+                        <Text style={estilos.tituloCartao} numberOfLines={1}>
+                            {anime.title}
+                        </Text>
+                    </TouchableOpacity>
+                ))}
+            </ScrollView>
+        </View>
+    );
+
     return (
         <ScrollView style={estilos.container}>
             <StatusBar />
@@ -78,26 +98,6 @@ export default function TelaInicial({ navigation }) {
         </ScrollView>
     );
 }
-
-const SecaoCategoria = ({ titulo, dados, navigation }) => (
-    <View style={estilos.secao}>
-        <Text style={estilos.tituloSecao}>{titulo}</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {dados.map((anime) => (
-                <TouchableOpacity
-                    key={anime.mal_id}
-                    style={estilos.cartao}
-                    onPress={() => navigation.navigate('Informacoes', { anime })}
-                >
-                    <Image source={{ uri: anime.images.jpg.image_url }} style={estilos.imagemCartao} />
-                    <Text style={estilos.tituloCartao} numberOfLines={1}>
-                        {anime.title}
-                    </Text>
-                </TouchableOpacity>
-            ))}
-        </ScrollView>
-    </View>
-);
 
 const estilos = StyleSheet.create({
     container: {

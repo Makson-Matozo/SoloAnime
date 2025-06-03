@@ -1,67 +1,25 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, StatusBar } from 'react-native';
 import { Video } from 'expo-av';
-import Animated, {
-    useSharedValue,
-    withTiming,
-    useAnimatedStyle,
-    Easing,
-    runOnJS,
-} from 'react-native-reanimated';
 import { LinearGradient } from 'expo-linear-gradient';
 
-// Constantes reutilizáveis
 const SPLASH_DURATION = 3000;
-const ANIMATION_DURATION = 1500;
-const SCALE_BASE = 0.8;
-const SCALE_VARIATION = 0.2;
 
 export default function SplashScreen({ navigation }) {
-    const videoRef = useRef(null);
-    const opacity = useSharedValue(0);
-
-    const navigateToMain = useCallback(() => {
-        navigation.replace('Main');
-    }, [navigation]);
-
-    const animatedStyle = useAnimatedStyle(() => ({
-        opacity: opacity.value,
-        transform: [{ scale: opacity.value * SCALE_VARIATION + SCALE_BASE }],
-    }));
 
     useEffect(() => {
-        animateIn();
-        const timer = setTimeout(animateOut, SPLASH_DURATION);
-        return () => cleanup(timer);
-    }, [navigateToMain]);
+        const timer = setTimeout(() => {
+            navigation.replace('Main');
+        }, SPLASH_DURATION);
 
-    // Animação de entrada
-    const animateIn = () => {
-        opacity.value = withTiming(1, {
-            duration: ANIMATION_DURATION,
-            easing: Easing.out(Easing.exp),
-        });
-    };
-
-    // Animação de saída + navegação
-    const animateOut = () => {
-        opacity.value = withTiming(0, { duration: 500 }, () => {
-            runOnJS(navigateToMain)();
-        });
-    };
-
-    // Limpeza
-    const cleanup = (timer) => {
-        clearTimeout(timer);
-        if (videoRef.current) videoRef.current.pauseAsync();
-    };
+        return () => clearTimeout(timer); // Limpa o timer se a tela for desmontada antes
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
             <StatusBar hidden />
 
             <Video
-                ref={videoRef}
                 source={require('./assets/splash-video.mp4')}
                 rate={1.0}
                 isMuted={false}
@@ -78,10 +36,10 @@ export default function SplashScreen({ navigation }) {
                 end={{ x: 1, y: 1 }}
             />
 
-            <Animated.View style={[styles.overlay, animatedStyle]}>
+            <View style={styles.overlay}>
                 <Text style={styles.title}>SoloAnime</Text>
                 <ActivityIndicator size="large" color="#dbe7ec" />
-            </Animated.View>
+            </View>
         </View>
     );
 }
