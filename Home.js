@@ -7,6 +7,7 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
+    Alert
 } from 'react-native';
 import axios from 'axios';
 
@@ -57,7 +58,7 @@ export default function TelaInicial({ navigation }) {
 
                 setCarregado(true);
             } catch (erro) {
-                console.error('Erro ao buscar os dados:', erro);
+                Alert.alert("Erro", `Erro ao buscar top animes:\n${err.message}`);
             }
         };
 

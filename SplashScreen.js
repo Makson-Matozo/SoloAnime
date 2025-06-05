@@ -12,7 +12,7 @@ export default function SplashScreen({ navigation }) {
             navigation.replace('Main');
         }, SPLASH_DURATION);
 
-        return () => clearTimeout(timer); // Limpa o timer se a tela for desmontada antes
+        return () => clearTimeout(timer);
     }, [navigation]);
 
     return (
@@ -26,12 +26,12 @@ export default function SplashScreen({ navigation }) {
                 resizeMode="cover"
                 shouldPlay
                 isLooping
-                style={StyleSheet.absoluteFillObject}
+                style={styles.backgroundVideo}
             />
 
             <LinearGradient
                 colors={['rgba(255,255,255,0.15)', 'rgba(14, 26, 34, 0.8)']}
-                style={StyleSheet.absoluteFill}
+                style={styles.gradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
             />
@@ -44,17 +44,35 @@ export default function SplashScreen({ navigation }) {
     );
 }
 
-const styles = StyleSheet.create({
+const estilos = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0e1a22',
     },
-    overlay: {
-        ...StyleSheet.absoluteFillObject,
+    videoDeFundo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    gradiente: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    camadaSobreposta: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title: {
+    titulo: {
         fontSize: 42,
         fontWeight: '900',
         color: '#fff',
@@ -66,3 +84,4 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial Black',
     },
 });
+""

@@ -6,23 +6,24 @@ import {
     FlatList,
     ActivityIndicator,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    Alert
 } from 'react-native';
 import axios from 'axios';
 
 export default function Tops({ navigation }) {
     const [animesTop, setAnimesTop] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [carregar, setcarregar] = useState(true);
 
     useEffect(() => {
         const buscarAnimesTop = async () => {
             try {
                 const res = await axios.get('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25');
                 setAnimesTop(res.data.data);
-                setLoading(false);
+                setcarregar(false);
             } catch (err) {
-                console.error("Erro ao buscar top animes:", err);
-                setLoading(false);
+                Alert.alert("Erro", `Erro ao buscar top animes:\n${err.message}`);
+                setcarregar(false);
             }
         };
 
@@ -30,7 +31,7 @@ export default function Tops({ navigation }) {
     }, []);
 
 
-    if (loading) {
+    if (carregar) {
         return (
             <View style={styles.container}>
                 <ActivityIndicator size="large" color="#00bfff" />
