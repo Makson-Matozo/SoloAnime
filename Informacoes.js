@@ -15,6 +15,7 @@ export default function Informacoes({ route, navigation }) {
                     <Text style={styles.info}><Text style={styles.label}>Status:</Text> {anime.status || 'N/A'}</Text>
                     <Text style={styles.info}><Text style={styles.label}>Nota:</Text> {anime.score || 'N/A'}</Text>
                     <Text style={styles.info}><Text style={styles.label}>Tipo:</Text> {anime.type || 'N/A'}</Text>
+                    <Text style={styles.info}><Text style={styles.label}>Episodios:</Text> {anime.episodes || 'N/A'}</Text>
                     <Text style={styles.info}><Text style={styles.label}>Duração:</Text> {anime.duration || 'N/A'}</Text>
                     <Text style={styles.info}><Text style={styles.label}>Ano:</Text> {anime.year || 'N/A'}</Text>
                     <Text style={styles.info}><Text style={styles.label}>Temporada:</Text> {anime.season || 'N/A'}</Text>

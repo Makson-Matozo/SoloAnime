@@ -7,7 +7,8 @@ import {
     Image,
     TouchableOpacity,
     StatusBar,
-    Alert
+    Alert,
+    ActivityIndicator,
 } from 'react-native';
 import axios from 'axios';
 
@@ -19,11 +20,11 @@ export default function TelaInicial({ navigation }) {
     const [dragonBall, setDragonBall] = useState([]);
     const [naruto, setNaruto] = useState([]);
     const [onePiece, setOnePiece] = useState([]);
+    const [bleach, setBleach] = useState([]);
 
     const [carregado, setCarregado] = useState(false);
 
     useEffect(() => {
-        if (carregado) return;
         const buscarAnimes = async () => {
             const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -31,10 +32,9 @@ export default function TelaInicial({ navigation }) {
                 const respostaShounen = await axios.get('https://api.jikan.moe/v4/anime?genres=1&limit=5');
                 setGeneroShounen(respostaShounen.data.data);
                 await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar SHOUNEN", erro.message);
             }
-            catch (erro) {
-            Alert.alert("Erro ao buscar SHOUNEN", erro.message);}
-            
 
             try {
                 const respostaComedia = await axios.get('https://api.jikan.moe/v4/anime?genres=4&limit=5');
@@ -43,53 +43,69 @@ export default function TelaInicial({ navigation }) {
             } catch (erro) {
                 Alert.alert("Erro ao buscar COMÉDIA", erro.message);
             }
-            
 
             try {
                 const respostaRomance = await axios.get('https://api.jikan.moe/v4/anime?genres=74&limit=5');
                 setGeneroRomance(respostaRomance.data.data);
+                await esperar(1000);
             } catch (erro) {
                 Alert.alert("Erro ao buscar ROMANCE", erro.message);
             }
-            await esperar(1000);
 
             try {
                 const respostaSeinen = await axios.get('https://api.jikan.moe/v4/anime?genres=2&limit=5');
                 setGeneroSeinen(respostaSeinen.data.data);
+                await esperar(1000);
             } catch (erro) {
                 Alert.alert("Erro ao buscar SEINEN", erro.message);
             }
-            await esperar(1000);
 
             try {
                 const respostaDB = await axios.get('https://api.jikan.moe/v4/anime?q=dragon ball&limit=5');
                 setDragonBall(respostaDB.data.data);
+                await esperar(1000);
             } catch (erro) {
                 Alert.alert("Erro ao buscar DRAGON BALL", erro.message);
             }
-            await esperar(1000);
 
             try {
                 const respostaNaruto = await axios.get('https://api.jikan.moe/v4/anime?q=naruto&limit=5');
                 setNaruto(respostaNaruto.data.data);
+                await esperar(1000);
             } catch (erro) {
                 Alert.alert("Erro ao buscar NARUTO", erro.message);
             }
-            await esperar(1000);
 
             try {
                 const respostaOnePiece = await axios.get('https://api.jikan.moe/v4/anime?q=one piece&limit=5');
                 setOnePiece(respostaOnePiece.data.data);
+                await esperar(1000);
             } catch (erro) {
                 Alert.alert("Erro ao buscar ONE PIECE", erro.message);
             }
+
+            try {
+                const respostaBleach = await axios.get('https://api.jikan.moe/v4/anime?q=bleach&limit=5');
+                setBleach(respostaBleach.data.data);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar BLEACH", erro.message);
+            }
+
             setCarregado(true);
         };
 
-
         buscarAnimes();
-    }, [carregado]);
-
+    }, []);
+    
+    if (!carregado) {
+        return (
+            <View style={[estilos.container, estilos.loadingContainer]}>
+                <ActivityIndicator size="large" color="#00f0ff" />
+                <Text style={estilos.textoCarregando}>Carregando animes...</Text>
+            </View>
+        );
+    }
+    
     const SecaoCategoria = ({ titulo, dados, navigation }) => (
         <View style={estilos.secao}>
             <Text style={estilos.tituloSecao}>{titulo}</Text>
@@ -110,6 +126,7 @@ export default function TelaInicial({ navigation }) {
         </View>
     );
 
+
     return (
         <ScrollView style={estilos.container}>
             <StatusBar />
@@ -121,6 +138,7 @@ export default function TelaInicial({ navigation }) {
             <SecaoCategoria titulo="DRAGON BALL" dados={dragonBall} navigation={navigation} />
             <SecaoCategoria titulo="NARUTO" dados={naruto} navigation={navigation} />
             <SecaoCategoria titulo="ONE PIECE" dados={onePiece} navigation={navigation} />
+            <SecaoCategoria titulo="BLEACH" dados={bleach} navigation={navigation} />
         </ScrollView>
     );
 }
@@ -129,6 +147,17 @@ const estilos = StyleSheet.create({
     container: {
         backgroundColor: '#0b0f1a',
         paddingTop: 20,
+        flex: 1,
+    },
+    loadingContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    textoCarregando: {
+        color: '#00f0ff',
+        marginTop: 10,
+        fontSize: 16,
     },
     logo: {
         width: '80%',
