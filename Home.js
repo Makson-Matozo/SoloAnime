@@ -24,43 +24,68 @@ export default function TelaInicial({ navigation }) {
 
     useEffect(() => {
         if (carregado) return;
-
-        const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
         const buscarAnimes = async () => {
+            const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
             try {
                 const respostaShounen = await axios.get('https://api.jikan.moe/v4/anime?genres=1&limit=5');
                 setGeneroShounen(respostaShounen.data.data);
                 await esperar(1000);
+            }
+            catch (erro) {
+            Alert.alert("Erro ao buscar SHOUNEN", erro.message);}
+            
 
+            try {
                 const respostaComedia = await axios.get('https://api.jikan.moe/v4/anime?genres=4&limit=5');
                 setGeneroComedia(respostaComedia.data.data);
                 await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar COMÉDIA", erro.message);
+            }
+            
 
+            try {
                 const respostaRomance = await axios.get('https://api.jikan.moe/v4/anime?genres=74&limit=5');
                 setGeneroRomance(respostaRomance.data.data);
-                await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar ROMANCE", erro.message);
+            }
+            await esperar(1000);
 
+            try {
                 const respostaSeinen = await axios.get('https://api.jikan.moe/v4/anime?genres=2&limit=5');
                 setGeneroSeinen(respostaSeinen.data.data);
-                await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar SEINEN", erro.message);
+            }
+            await esperar(1000);
 
+            try {
                 const respostaDB = await axios.get('https://api.jikan.moe/v4/anime?q=dragon ball&limit=5');
                 setDragonBall(respostaDB.data.data);
-                await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar DRAGON BALL", erro.message);
+            }
+            await esperar(1000);
 
+            try {
                 const respostaNaruto = await axios.get('https://api.jikan.moe/v4/anime?q=naruto&limit=5');
                 setNaruto(respostaNaruto.data.data);
-                await esperar(1000);
+            } catch (erro) {
+                Alert.alert("Erro ao buscar NARUTO", erro.message);
+            }
+            await esperar(1000);
 
+            try {
                 const respostaOnePiece = await axios.get('https://api.jikan.moe/v4/anime?q=one piece&limit=5');
                 setOnePiece(respostaOnePiece.data.data);
-
-                setCarregado(true);
             } catch (erro) {
-                Alert.alert("Erro", `Erro ao buscar top animes:\n${err.message}`);
+                Alert.alert("Erro ao buscar ONE PIECE", erro.message);
             }
+            setCarregado(true);
         };
+
 
         buscarAnimes();
     }, [carregado]);

@@ -6,7 +6,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 const SPLASH_DURATION = 3000;
 
 export default function SplashScreen({ navigation }) {
-
     useEffect(() => {
         const timer = setTimeout(() => {
             navigation.replace('Main');
@@ -44,26 +43,26 @@ export default function SplashScreen({ navigation }) {
     );
 }
 
-const estilos = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0e1a22',
     },
-    videoDeFundo: {
+    backgroundVideo: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
     },
-    gradiente: {
+    gradient: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
     },
-    camadaSobreposta: {
+    overlay: {
         position: 'absolute',
         top: 0,
         left: 0,
@@ -72,7 +71,7 @@ const estilos = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    titulo: {
+    title: {
         fontSize: 42,
         fontWeight: '900',
         color: '#fff',
@@ -84,4 +83,3 @@ const estilos = StyleSheet.create({
         fontFamily: 'Arial Black',
     },
 });
-""

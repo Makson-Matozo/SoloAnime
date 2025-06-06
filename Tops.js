@@ -21,8 +21,8 @@ export default function Tops({ navigation }) {
                 const res = await axios.get('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=25');
                 setAnimesTop(res.data.data);
                 setcarregar(false);
-            } catch (err) {
-                Alert.alert("Erro", `Erro ao buscar top animes:\n${err.message}`);
+            } catch (erro) {
+                Alert.alert("Erro", `Erro ao buscar top animes:\n${erro.message}`);
                 setcarregar(false);
             }
         };
