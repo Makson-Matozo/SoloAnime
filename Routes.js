@@ -7,7 +7,7 @@ import Home from './Home';
 import Tops from './Tops';
 import Sobre from './Sobre';
 import Informacoes from './Informacoes';
-import SplashScreen from './SplashScreen'; // Novo import
+import SplashScreen from './SplashScreen'; 
 
 import { Ionicons } from '@expo/vector-icons';
 import Feather from '@expo/vector-icons/Feather';

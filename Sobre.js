@@ -12,7 +12,8 @@ import { Ionicons, FontAwesome, AntDesign } from '@expo/vector-icons';
 
 export default function Sobre() {
     const openLink = (url) => {
-        Linking.openURL(url).catch(() => {
+        Linking.openURL(url)
+        .catch(() => {
             Alert.alert('Erro', 'Não foi possível abrir o link. Verifique sua conexão ou tente novamente.');
         });
     };
