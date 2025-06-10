@@ -1,5 +1,6 @@
 import React from 'react';
 import {View,Text,Image,StyleSheet,ScrollView,Linking,TouchableOpacity,StatusBar,} from 'react-native';
+import styles from "./estilos/InformacoesEstilo.js";
 export default function Informacoes({ route, navigation }) {
     const { anime } = route.params;
 
@@ -42,91 +43,3 @@ export default function Informacoes({ route, navigation }) {
         </ScrollView>
     );
 }
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#0c0f1a',
-        padding: 16,
-    },
-    content: {
-        alignItems: 'center',
-    },
-    image: {
-        marginTop: '10%',
-        width: '100%',
-        height: 400,
-        borderRadius: 12,
-        marginBottom: 16,
-        resizeMode: 'cover',
-        shadowColor: '#00f0ff',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.5,
-        shadowRadius: 20,
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#00f0ff',
-        textShadowColor: '#000',
-        textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 10,
-        textAlign: 'center',
-        marginBottom: 10,
-    },
-    descricao: {
-        fontSize: 16,
-        color: '#ccc',
-        marginBottom: 20,
-        textAlign: 'center',
-        paddingHorizontal: 10,
-        lineHeight: 24,
-    },
-    infoBox: {
-        backgroundColor: '#111827',
-        borderRadius: 10,
-        padding: 16,
-        width: '100%',
-        marginBottom: 20,
-        shadowColor: '#00f0ff',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 10,
-    },
-    info: {
-        fontSize: 15,
-        color: '#ccc',
-        marginBottom: 8,
-    },
-    label: {
-        color: '#00f0ff',
-        fontWeight: 'bold',
-        textAlign:"center",
-    },
-    trailerButton: {
-        backgroundColor: '#00f0ff',
-        paddingVertical: 14,
-        borderRadius: 8,
-        marginTop: 10,
-        marginBottom: 10,
-        alignItems: 'center',
-        width: '100%',
-        shadowColor: '#00f0ff',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.7,
-        shadowRadius: 10,
-    },
-    backButton: {
-        backgroundColor: '#1f2937',
-        paddingVertical: 12,
-        borderRadius: 8,
-        marginBottom: 30,
-        alignItems: 'center',
-        width: '100%',
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-    },
-});
